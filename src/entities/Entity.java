@@ -1,32 +1,28 @@
 package entities;
 
 import models.TexturedModel;
-import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector2f;
 
 public class Entity {
 
     private TexturedModel model;
-    private Vector3f position;
-    private float rotX, rotY, rotZ;
-    private float scale;
+    private Vector2f position;
+    private float rot;
+    private Vector2f scale;
 
     private int textureIndex = 0;
 
-    public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
+    public Entity(TexturedModel model, Vector2f position, float rot, Vector2f scale) {
         this.model = model;
         this.position = position;
-        this.rotX = rotX;
-        this.rotY = rotY;
-        this.rotZ = rotZ;
+        this.rot = rot;
         this.scale = scale;
     }
 
-    public Entity(TexturedModel model, int index, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
+    public Entity(TexturedModel model, int index, Vector2f position, float rot, Vector2f scale) {
         this.model = model;
         this.position = position;
-        this.rotX = rotX;
-        this.rotY = rotY;
-        this.rotZ = rotZ;
+        this.rot = rot;
         this.scale = scale;
         this.textureIndex = index;
     }
@@ -41,16 +37,13 @@ public class Entity {
         return (float) row / model.getTexture().getNumberOfRows();
     }
 
-    public void increasePosition(float dx, float dy, float dz){
+    public void increasePosition(float dx, float dy){
         this.position.x += dx;
         this.position.y += dy;
-        this.position.z += dz;
     }
 
-    public void increaseRotation(float dx, float dy, float dz){
-        this.rotX += dx;
-        this.rotY += dy;
-        this.rotZ += dz;
+    public void increaseRotation(float d){
+        this.rot += d;
     }
 
     public TexturedModel getModel() {
@@ -61,43 +54,27 @@ public class Entity {
         this.model = model;
     }
 
-    public Vector3f getPosition() {
+    public Vector2f getPosition() {
         return position;
     }
 
-    public void setPosition(Vector3f position) {
+    public void setPosition(Vector2f position) {
         this.position = position;
     }
 
-    public float getRotX() {
-        return rotX;
+    public float getRot() {
+        return rot;
     }
 
-    public void setRotX(float rotX) {
-        this.rotX = rotX;
+    public void setRot(float rot) {
+        this.rot = rot;
     }
 
-    public float getRotY() {
-        return rotY;
-    }
-
-    public void setRotY(float rotY) {
-        this.rotY = rotY;
-    }
-
-    public float getRotZ() {
-        return rotZ;
-    }
-
-    public void setRotZ(float rotZ) {
-        this.rotZ = rotZ;
-    }
-
-    public float getScale() {
+    public Vector2f getScale() {
         return scale;
     }
 
-    public void setScale(float scale) {
+    public void setScale(Vector2f scale) {
         this.scale = scale;
     }
 }
