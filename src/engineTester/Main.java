@@ -7,6 +7,7 @@ import entities.Player;
 import guis.GuiRenderer;
 import guis.GuiTexture;
 import models.TexturedModel;
+import org.lwjgl.Sys;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import renderEngine.*;
@@ -16,6 +17,7 @@ import terrains.Terrain;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
+import toolbox.MousePicker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,16 +74,19 @@ public class Main {
         TexturedModel dragon = new TexturedModel(OBJLoader.loadOBJModel("person", loader), new ModelTexture(loader.loadTexture("playerTexture")));
         Player player = new Player(dragon, new Vector3f(0, 0, -50), 0, 0, 0, 0.3f);
         Camera camera = new Camera(player);
-        MasterRenderer renderer = new MasterRenderer();
+        MasterRenderer renderer = new MasterRenderer(loader);
 
         GuiRenderer guiRenderer = new GuiRenderer(loader);
 
+        MousePicker mousePicker = new MousePicker(camera, renderer.getProjectionMatrix());
 
         while (!Display.isCloseRequested()){
             camera.move();
             player.move(terrain);
             renderer.processEntity(player);
-            System.out.println(player.getPosition());
+
+            mousePicker.update();
+            System.out.println(mousePicker.getCurrentRay());
 
             renderer.processTerrain(terrain);
             renderer.processTerrain(terrain2);
